@@ -1,0 +1,5 @@
+//insert a doc in the coltn school
+//the doc must have attribute name with value "Holberton shool" 
+//databse name will be passed as option of mongo command
+db.school.insert({ name : "Holberton school"}) 
+

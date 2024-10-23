@@ -38,3 +38,16 @@ if __name__ == "__main__":
     )
 
     print(f"{get_status_logs} status check")
+
+    top_ips = nginx_collection.aggregate([
+        {"$group": {"_id": "$ip", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1}},
+        {"$limit": 10},
+        {"$project": {"_id": 0, "ip": "$_id", "count": 1}}
+    ])
+
+    print("IPs:")
+    for top_ip in top_ips:
+        ip = top_ip.get("ip")
+        count = top_ip.get("count")
+        print(f"\t{ip}: {count}")
